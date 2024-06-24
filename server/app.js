@@ -18,17 +18,17 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
-// Custom token to log request body
+
 morgan.token("body", (req) => {
   return JSON.stringify(req.body);
 });
 
-// Custom token to log cookies
+
 morgan.token("cookies", (req) => {
   return JSON.stringify(req.cookies);
 });
 
-// Custom Morgan for logging
+
 app.use(
   morgan((tokens, req, res) => {
     return [
@@ -40,8 +40,8 @@ app.use(
       `IP: ${tokens["remote-addr"](req, res)}`,
       `User-Agent: ${tokens["user-agent"](req, res)}`,
       `Timestamp: ${new Date().toISOString()}`,
-      `Payload: ${tokens.body(req, res)}`, // Log the request body
-      `Cookies: ${tokens.cookies(req, res)}`, // Log the cookies
+      `Payload: ${tokens.body(req, res)}`, 
+      `Cookies: ${tokens.cookies(req, res)}`, 
     ].join(" | ");
   })
 );
@@ -64,7 +64,7 @@ app.use("/opDetails", require("./routes/opDetailsRoutes"));
 app.use("/checkReq", require("./routes/checkReqRoutes"));
 app.use("/auth", require("./routes/authRoutes"));
 
-// Start the server
+
 const PORT = process.env.PORT || 3030;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
